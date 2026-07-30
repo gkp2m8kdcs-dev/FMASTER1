@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07091A" />
+<title>Privacy Policy — FMASTER</title>
+<meta name="description" content="FMASTER privacy policy: how the app handles your data — locally, transparently, and without servers." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-top:        #05061A;
+    --bg-bottom:     #11143A;
+    --card:          rgba(22, 26, 52, 0.55);
+    --card-elevated: rgba(36, 41, 71, 0.62);
+    --stroke:        rgba(110, 122, 175, 0.28);
+    --accent-cyan:   #4FC7FF;
+    --accent-violet: #9E76FF;
+    --accent-mint:   #38E6C7;
+    --text-primary:  #F7F7F7;
+    --text-secondary:#B8B8C8;
+    --text-tertiary: #7A7C95;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-top);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Cosmic backdrop */
+  .cosmic-bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(79,199,255,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 30%, rgba(158,118,255,0.18), transparent 60%),
+      linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  }
+  .stars {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.45;
+    background-image:
+      radial-gradient(1px 1px at 23% 14%, #fff, transparent),
+      radial-gradient(1px 1px at 67% 31%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 41% 67%, #fff, transparent),
+      radial-gradient(1px 1px at 82% 78%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 11% 88%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 95% 12%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 72% 55%, rgba(79,199,255,0.9), transparent);
+    animation: twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { from {opacity:0.3;} to {opacity:0.7;} }
+
+  /* Layout */
+  .container { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  .container-wide { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Nav */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: rgba(5, 6, 26, 0.55);
+    border-bottom: 1px solid var(--stroke);
+  }
+  nav.top .inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 17px; letter-spacing: 0.04em;
+    color: var(--text-primary); text-decoration: none;
+  }
+  .brand-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+    display: grid; place-items: center; color: #07091A;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(79,199,255,0.4);
+  }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-links a.active { color: var(--accent-cyan); }
+
+  /* Hero */
+  .hero {
+    padding: 90px 0 50px; text-align: center;
+  }
+  .icon-badge {
+    width: 64px; height: 64px;
+    margin: 0 auto 24px;
+    border-radius: 18px;
+    display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(79,199,255,0.20), rgba(56,230,199,0.10));
+    border: 1px solid rgba(79,199,255,0.35);
+    color: var(--accent-cyan);
+    box-shadow: 0 12px 40px -10px rgba(79,199,255,0.4);
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 700;
+    margin-bottom: 14px;
+    background: linear-gradient(135deg, #fff, #aab8ff 60%, #d6a8ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .sub {
+    color: var(--text-secondary);
+    font-size: 17px;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  /* Body cards */
+  section { padding: 30px 0 100px; }
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin: 56px 0 22px;
+  }
+  .section-title::before {
+    content: "//"; opacity: 0.6;
+  }
+  .section-title::after {
+    content: "";
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--stroke), transparent);
+  }
+  .card {
+    background: var(--card);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--stroke);
+    border-radius: 20px;
+    padding: 36px 36px;
+    margin-bottom: 18px;
+  }
+  .card h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+  }
+  .card p {
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .card ul li {
+    position: relative;
+    padding-left: 22px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  .card ul li::before {
+    content: "▸";
+    color: var(--accent-cyan);
+    position: absolute;
+    left: 0;
+  }
+  .card ul li strong { color: var(--text-primary); font-weight: 600; }
+  .card ul li.no { color: var(--text-tertiary); }
+  .card ul li.no::before { color: var(--accent-mint); content: "✓"; }
+
+  /* Pillars row */
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin: 40px 0 12px;
+  }
+  .pillar {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 18px;
+    padding: 26px 22px;
+    text-align: left;
+  }
+  .pillar .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .pillar h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .pillar p { color: var(--text-secondary); font-size: 14px; }
+
+  /* Contact banner */
+  .contact-banner {
+    margin-top: 30px;
+    background: linear-gradient(135deg, rgba(56,230,199,0.10), rgba(79,199,255,0.10));
+    border: 1px solid rgba(56,230,199,0.30);
+    border-radius: 18px;
+    padding: 28px 32px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .contact-banner svg { color: var(--accent-mint); flex-shrink: 0; }
+  .contact-banner .label { color: var(--text-tertiary); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; }
+  .contact-banner a {
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+    text-decoration: none;
+    font-size: 15px;
+  }
+  .contact-banner a:hover { color: var(--accent-cyan); }
+
+  /* Updated stamp */
+  .updated {
+    margin-top: 50px;
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 13px;
+  }
+  .updated .dot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent-mint);
+    margin-right: 8px; vertical-align: middle;
+    box-shadow: 0 0 10px var(--accent-mint);
+  }
+
+  /* Footer */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--stroke);
+    background: rgba(5,6,26,0.4);
+  }
+  .foot-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  .foot h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-primary); margin-bottom: 18px;
+  }
+  .foot ul { list-style: none; }
+  .foot li { margin-bottom: 10px; }
+  .foot a {
+    color: var(--text-secondary); text-decoration: none; font-size: 14px;
+    transition: color 0.2s;
+  }
+  .foot a:hover { color: var(--accent-cyan); }
+  .foot-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--stroke);
+    color: var(--text-tertiary); font-size: 13px;
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .container, .container-wide { padding: 0 22px; }
+    .pillars { grid-template-columns: 1fr; }
+    .card { padding: 26px 22px; }
+    .contact-banner { flex-direction: column; align-items: flex-start; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+  }
+  @media (max-width: 480px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cosmic-bg"></div>
+<div class="stars"></div>
+
+<nav class="top">
+  <div class="container-wide inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">V</span>
+      <span>FMASTER</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html" class="active">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container reveal">
+    <div class="icon-badge">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"/><path d="M9 12l2 2 4-4"/></svg>
+    </div>
+    <h1 class="display">Privacy Policy</h1>
+    <p class="sub">How FMASTER handles your data — short, honest, and on-device.</p>
+  </div>
+</section>
+
+<!-- Body -->
+<section>
+  <div class="container">
+
+    <!-- Quick pillars -->
+    <div class="pillars reveal">
+      <div class="pillar">
+        <div class="num">01</div>
+        <h3>On-device only</h3>
+        <p>All calculations run locally. Nothing leaves your phone unless you explicitly export it.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">02</div>
+        <h3>Zero analytics</h3>
+        <p>No tracking SDKs, no ad IDs, no third-party telemetry. The app never phones home.</p>
+      </div>
+      <div class="pillar">
+        <div class="num">03</div>
+        <h3>Yours to wipe</h3>
+        <p>Clear all stored data with a single tap from Settings → Data → Clear history.</p>
+      </div>
+    </div>
+
+    <!-- Overview -->
+    <div class="section-title">Overview</div>
+    <div class="card reveal">
+      <p>FMASTER respects your privacy. This page summarises the principles that govern how the app handles your information. The short version: the app does not collect, transmit, or sell any personal data. Everything you put into the calculator stays on the device that produced it.</p>
+      <p>This policy applies only to the FMASTER iOS application. It does not extend to any third-party websites you may reach through links in our in-app legal pages or marketing material.</p>
+    </div>
+
+    <!-- Local -->
+    <div class="section-title">Local-only Processing</div>
+    <div class="card reveal">
+      <p>All calculations are performed locally on this device. The app does not transmit formula inputs, intermediate values, or results to any external server. Even when you don't have an internet connection, FMASTER works fully — the engine is bundled with the binary.</p>
+    </div>
+
+    <!-- Storage -->
+    <div class="section-title">History &amp; Preferences</div>
+    <div class="card reveal">
+      <p>Two categories of data are stored only in local app storage on your device:</p>
+      <ul>
+        <li><strong>Calculation history</strong> — formulas, inputs, results, and timestamps for any computation you choose to save.</li>
+        <li><strong>User preferences</strong> — your haptic feedback toggle (Settings → Preferences) and decimal place setting (Settings → Preferences).</li>
+      </ul>
+      <p>Both can be cleared at any time. Open the app, navigate to Settings → Data → <em>Clear history</em>, and confirm. Removal is immediate and irreversible.</p>
+    </div>
+
+    <!-- What is NOT collected -->
+    <div class="section-title">What We Don't Collect</div>
+    <div class="card reveal">
+      <ul>
+        <li class="no">Personal identifiers such as name, email address, or phone number.</li>
+        <li class="no">Location data, contacts, photos, microphone, or camera access.</li>
+        <li class="no">Device identifiers (IDFA, IDFV, MAC, IMEI, serial numbers).</li>
+        <li class="no">Anonymous usage analytics, advertising identifiers, or behavioural tracking.</li>
+        <li class="no">Any information shared with third parties, advertisers, or data brokers.</li>
+      </ul>
+    </div>
+
+    <!-- Third-party -->
+    <div class="section-title">Third-party SDKs</div>
+    <div class="card reveal">
+      <p>FMASTER does not bundle any third-party analytics, advertising, crash-reporting, or social SDKs. The app's compiled binary contains only the code and content required to perform the calculations described above.</p>
+    </div>
+
+    <!-- Children -->
+    <div class="section-title">Children's Privacy</div>
+    <div class="card reveal">
+      <p>FMASTER is a general-audience engineering reference. It does not knowingly collect any data from any user, including children under 13 (or the equivalent minimum age in your jurisdiction).</p>
+    </div>
+
+    <!-- Changes -->
+    <div class="section-title">Changes to this Policy</div>
+    <div class="card reveal">
+      <p>We may update this policy from time to time. Material changes will be reflected in the app's Settings → Privacy section. Continued use of FMASTER after an update constitutes acceptance of the latest version.</p>
+    </div>
+
+    <!-- Contact -->
+    <div class="section-title">Contact</div>
+    <div class="card reveal">
+      <p>For privacy questions, requests, or to report a concern, contact the developer at the email below. We aim to respond within a reasonable timeframe.</p>
+      <div class="contact-banner">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <div>
+          <div class="label">Privacy contact</div>
+          <a href="mailto:Butraminamhegqulad@gmail.com">Butraminamhegqulad@gmail.com</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="updated">
+      <span class="dot"></span>Last updated · 2026
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container-wide">
+    <div class="foot-grid">
+      <div class="foot">
+        <a href="index.html" class="brand" style="margin-bottom:14px;">
+          <span class="brand-mark">V</span>
+          <span>FMASTER</span>
+        </a>
+        <p style="color:var(--text-secondary);font-size:14px;max-width:300px;">
+          A precision engineering reference, designed for the next generation of problem solvers.
+        </p>
+      </div>
+      <div class="foot">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="https://apps.apple.com/">Download</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="support.html#contact">Contact</a></li>
+          <li><a href="support.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 FMASTER. All rights reserved.</span>
+      <span>Butraminamhegqulad@gmail.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#07091A" />
+<title>Support — FMASTER</title>
+<meta name="description" content="FMASTER support center: FAQ, troubleshooting, and direct developer contact for the dimensionless analysis toolkit." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-top:        #05061A;
+    --bg-bottom:     #11143A;
+    --card:          rgba(22, 26, 52, 0.55);
+    --card-elevated: rgba(36, 41, 71, 0.62);
+    --stroke:        rgba(110, 122, 175, 0.28);
+    --stroke-soft:   rgba(110, 122, 175, 0.18);
+    --accent-cyan:   #4FC7FF;
+    --accent-violet: #9E76FF;
+    --accent-mint:   #38E6C7;
+    --accent-gold:   #FFD15C;
+    --text-primary:  #F7F7F7;
+    --text-secondary:#B8B8C8;
+    --text-tertiary: #7A7C95;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-top);
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .cosmic-bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 0%, rgba(79,199,255,0.10), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 90% 30%, rgba(158,118,255,0.18), transparent 60%),
+      linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  }
+  .stars {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.45;
+    background-image:
+      radial-gradient(1px 1px at 23% 14%, #fff, transparent),
+      radial-gradient(1px 1px at 67% 31%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 41% 67%, #fff, transparent),
+      radial-gradient(1px 1px at 82% 78%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 11% 88%, #fff, transparent),
+      radial-gradient(1.2px 1.2px at 95% 12%, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 72% 55%, rgba(79,199,255,0.9), transparent);
+    animation: twinkle 6s ease-in-out infinite alternate;
+  }
+  @keyframes twinkle { from {opacity:0.3;} to {opacity:0.7;} }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+  .container-wide { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  .display { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.02em; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* Nav */
+  nav.top {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    background: rgba(5, 6, 26, 0.55);
+    border-bottom: 1px solid var(--stroke);
+  }
+  nav.top .inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 68px;
+  }
+  .brand {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 17px; letter-spacing: 0.04em;
+    color: var(--text-primary); text-decoration: none;
+  }
+  .brand-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+    display: grid; place-items: center; color: #07091A;
+    font-weight: 800; box-shadow: 0 0 20px rgba(79,199,255,0.4);
+  }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a {
+    color: var(--text-secondary); text-decoration: none;
+    font-size: 14px; font-weight: 500; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-links a.active { color: var(--accent-cyan); }
+
+  /* Hero */
+  .hero { padding: 90px 0 50px; text-align: center; }
+  .icon-badge {
+    width: 64px; height: 64px; margin: 0 auto 24px;
+    border-radius: 18px; display: grid; place-items: center;
+    background: linear-gradient(135deg, rgba(158,118,255,0.20), rgba(79,199,255,0.10));
+    border: 1px solid rgba(158,118,255,0.35);
+    color: var(--accent-violet);
+    box-shadow: 0 12px 40px -10px rgba(158,118,255,0.4);
+  }
+  .hero h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(38px, 5vw, 56px);
+    font-weight: 700; margin-bottom: 14px;
+    background: linear-gradient(135deg, #fff, #aab8ff 60%, #d6a8ff);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero .sub { color: var(--text-secondary); font-size: 17px; max-width: 580px; margin: 0 auto; }
+
+  /* Quick links */
+  .quick {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;
+    margin: 50px 0 30px;
+  }
+  .qcard {
+    background: var(--card);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--stroke);
+    border-radius: 18px;
+    padding: 26px 24px;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .qcard:hover { transform: translateY(-4px); border-color: rgba(79,199,255,0.4); box-shadow: 0 20px 40px -20px rgba(79,199,255,0.4); }
+  .qcard .ic {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center;
+    background: rgba(79,199,255,0.12); color: var(--accent-cyan);
+    margin-bottom: 16px;
+  }
+  .qcard:nth-child(2) .ic { background: rgba(158,118,255,0.12); color: var(--accent-violet); }
+  .qcard:nth-child(3) .ic { background: rgba(56,230,199,0.12); color: var(--accent-mint); }
+  .qcard h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; margin-bottom: 6px; color: var(--text-primary); }
+  .qcard p { color: var(--text-secondary); font-size: 14px; }
+
+  /* Section heads */
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--accent-cyan);
+    text-transform: uppercase; letter-spacing: 0.2em;
+    margin: 70px 0 24px;
+  }
+  .section-title::before { content: "//"; opacity: 0.6; }
+  .section-title::after {
+    content: ""; flex: 1; height: 1px;
+    background: linear-gradient(90deg, var(--stroke), transparent);
+  }
+  .section-title.big { font-size: 26px; color: var(--text-primary); letter-spacing: -0.01em; }
+  .section-title.big::before { content: ""; }
+  .section-title.big::after { display: none; }
+  .section-title.big { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+
+  /* FAQ */
+  .faq { display: flex; flex-direction: column; gap: 12px; }
+  .faq details {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .faq details[open] { border-color: rgba(79,199,255,0.45); }
+  .faq summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 15px;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .icon {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: rgba(79,199,255,0.10);
+    color: var(--accent-cyan);
+    display: grid; place-items: center;
+    transition: transform 0.2s ease;
+    font-size: 18px; line-height: 1;
+  }
+  .faq details[open] summary .icon { transform: rotate(45deg); }
+  .faq .ans {
+    padding: 0 24px 22px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  .faq .ans p + p { margin-top: 10px; }
+  .faq .ans code {
+    font-family: 'JetBrains Mono', monospace;
+    padding: 2px 7px;
+    background: rgba(79,199,255,0.10);
+    border-radius: 6px;
+    color: var(--accent-cyan);
+    font-size: 13px;
+  }
+
+  /* In-app nav */
+  .innav {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 18px;
+    padding: 28px 32px;
+  }
+  .innav ol {
+    counter-reset: step;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+  }
+  .innav ol li {
+    counter-increment: step;
+    position: relative;
+    padding: 16px 16px 16px 50px;
+    background: rgba(36, 41, 71, 0.4);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+  .innav ol li::before {
+    content: counter(step);
+    position: absolute;
+    left: 14px; top: 14px;
+    width: 28px; height: 28px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+    color: #07091A;
+    display: grid; place-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .innav ol li strong { color: var(--text-primary); display: block; margin-bottom: 4px; font-family: 'Space Grotesk', sans-serif; }
+
+  /* Contact form */
+  .contact {
+    background: linear-gradient(135deg, rgba(79,199,255,0.08), rgba(158,118,255,0.08));
+    border: 1px solid rgba(79,199,255,0.30);
+    border-radius: 20px;
+    padding: 36px;
+  }
+  .contact h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .contact .lead { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+  .contact-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field.full { grid-column: 1 / -1; }
+  .field label {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .field input,
+  .field textarea,
+  .field select {
+    background: rgba(7, 9, 26, 0.6);
+    border: 1px solid var(--stroke);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text-primary);
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 0 3px rgba(79,199,255,0.15);
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px; padding: 14px 24px; border-radius: 12px;
+    font-weight: 600; font-size: 14px; text-decoration: none;
+    cursor: pointer; border: 1px solid transparent;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+    color: #07091A;
+    box-shadow: 0 12px 28px -8px rgba(79,199,255,0.55);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px -8px rgba(79,199,255,0.75); }
+  .form-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 20px; flex-wrap: wrap; gap: 12px;
+  }
+  .form-foot .hint { color: var(--text-tertiary); font-size: 13px; }
+  .form-foot .hint strong { color: var(--text-primary); }
+  .form-foot .hint a { color: var(--accent-cyan); text-decoration: none; }
+  .toast {
+    margin-top: 16px;
+    background: rgba(56,230,199,0.10);
+    border: 1px solid rgba(56,230,199,0.35);
+    color: var(--accent-mint);
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    display: none;
+  }
+  .toast.show { display: block; }
+
+  /* Channels */
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    margin-top: 24px;
+  }
+  .channel {
+    background: var(--card);
+    border: 1px solid var(--stroke);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .channel .ic {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(79,199,255,0.10);
+    color: var(--accent-cyan);
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .channel h4 { font-family: 'Space Grotesk', sans-serif; font-size: 15px; margin-bottom: 4px; }
+  .channel p { color: var(--text-secondary); font-size: 13px; }
+  .channel a {
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent-cyan);
+    text-decoration: none;
+    font-size: 13px;
+    margin-top: 6px;
+    display: inline-block;
+  }
+  .channel a:hover { color: var(--text-primary); }
+
+  /* Footer */
+  footer {
+    padding: 60px 0 40px;
+    border-top: 1px solid var(--stroke);
+    background: rgba(5,6,26,0.4);
+    margin-top: 80px;
+  }
+  .foot-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 40px; margin-bottom: 40px;
+  }
+  .foot h4 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--text-primary); margin-bottom: 18px;
+  }
+  .foot ul { list-style: none; }
+  .foot li { margin-bottom: 10px; }
+  .foot a {
+    color: var(--text-secondary); text-decoration: none; font-size: 14px;
+    transition: color 0.2s;
+  }
+  .foot a:hover { color: var(--accent-cyan); }
+  .foot-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--stroke);
+    color: var(--text-tertiary); font-size: 13px;
+  }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  @media (max-width: 768px) {
+    .container, .container-wide { padding: 0 22px; }
+    .quick { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .channels { grid-template-columns: 1fr; }
+    .contact { padding: 26px 22px; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .nav-links a:not(.btn) { display: none; }
+    .form-foot { flex-direction: column; align-items: stretch; }
+  }
+  @media (max-width: 480px) {
+    .foot-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cosmic-bg"></div>
+<div class="stars"></div>
+
+<nav class="top">
+  <div class="container-wide inner">
+    <a href="index.html" class="brand">
+      <span class="brand-mark">V</span>
+      <span>FMASTER</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#features">Features</a>
+      <a href="support.html" class="active">Support</a>
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="container reveal">
+    <div class="icon-badge">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+    </div>
+    <h1 class="display">Support Center</h1>
+    <p class="sub">Quick answers, in-app navigation tips, and direct developer contact — all in one place.</p>
+  </div>
+</section>
+
+<!-- Quick links -->
+<div class="container">
+  <div class="quick reveal">
+    <a href="#faq" class="qcard">
+      <div class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 1 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+      </div>
+      <h3>FAQ</h3>
+      <p>Quick answers to the most common questions about computing, history, and export.</p>
+    </a>
+    <a href="#inapp" class="qcard">
+      <div class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="3"/><path d="M12 18h.01"/></svg>
+      </div>
+      <h3>In-app Navigation</h3>
+      <p>Where to find the calculator, library, insights, history and settings tabs.</p>
+    </a>
+    <a href="#contact" class="qcard">
+      <div class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </div>
+      <h3>Contact Developer</h3>
+      <p>Send a note — bug reports, feature requests, or just feedback.</p>
+    </a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="container">
+  <div class="section-title big" id="faq">Frequently asked questions</div>
+  <div class="section-title">// knowledge base</div>
+  <div class="faq reveal">
+    <details>
+      <summary>Where is my calculation history stored?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Every saved calculation lives only on your device — in the app's local storage. Nothing is uploaded. You can inspect, export or wipe history from <code>Settings → Data</code>.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I export my calculations?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Open <code>Settings → Data → Export history</code>. FMASTER creates a JSON file of all saved entries and opens the iOS share sheet so you can save to Files, iCloud Drive, AirDrop, or send it by mail.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I work entirely offline?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Yes. The calculator engine and the complete library of dimensionless numbers are bundled with the binary. Airplane mode is a fully supported runtime.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I delete all my data?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Open the app, go to <code>Settings → Data → Clear history</code>, and confirm. The action is irreversible but immediate. Alternatively, uninstalling the app removes everything.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I think a number is wrong. Where do I report it?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Use the contact form below or email <a href="mailto:Butraminamhegqulad@gmail.com" style="color:var(--accent-cyan);">Butraminamhegqulad@gmail.com</a> with the formula name and inputs you used. We cross-check reported cases against source literature before pushing a fix.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Does the app use my data for anything?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>No. FMASTER does not transmit inputs, results, or any telemetry to any server. There are no analytics SDKs, ad networks, or third-party trackers bundled in the binary. See the <a href="privacy.html" style="color:var(--accent-cyan);">Privacy Policy</a> for details.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How do I change the number of decimals shown?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>Open <code>Settings → Preferences → Decimal places</code> and use the stepper to choose between 1 and 8 decimals. The setting is preserved across sessions.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why don't haptics fire when I toggle the switch off?
+        <span class="icon">+</span>
+      </summary>
+      <div class="ans">
+        <p>That's the intended behaviour. Disabling haptics in <code>Settings → Preferences</code> silences vibration feedback across the calculator, gradient buttons and insight donut. The setting takes effect immediately.</p>
+      </div>
+    </details>
+  </div>
+</div>
+
+<!-- In-app nav -->
+<div class="container">
+  <div class="section-title big" id="inapp">Five tabs at a glance</div>
+  <div class="section-title">// where to find things</div>
+  <div class="innav reveal">
+    <ol>
+      <li><strong>Calculator</strong>Pick a number, fill in inputs, get the result and a regime label.</li>
+      <li><strong>Library</strong>Browse the full catalogue of dimensionless groups by domain.</li>
+      <li><strong>Insights</strong>See distributions of your saved results across categories.</li>
+      <li><strong>History</strong>Re-run, compare or share any prior calculation.</li>
+      <li><strong>Settings</strong>Manage preferences, data, legal pages and developer info.</li>
+    </ol>
+  </div>
+</div>
+
+<!-- Contact -->
+<div class="container">
+  <div class="section-title big" id="contact">Get in touch</div>
+  <div class="section-title">// direct line to the developer</div>
+  <div class="contact reveal">
+    <h3>Send a message</h3>
+    <p class="lead">Bug reports, feature requests, or just feedback — every email gets a reply.</p>
+    <form id="contactForm" novalidate>
+      <div class="contact-grid">
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Engineer" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="field">
+          <label for="topic">Topic</label>
+          <select id="topic" name="topic">
+            <option>Bug report</option>
+            <option>Feature request</option>
+            <option>Data correction</option>
+            <option>General feedback</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="version">App version (optional)</label>
+          <input type="text" id="version" name="version" placeholder="e.g. 1.0" />
+        </div>
+        <div class="field full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what happened, what you expected, and how to reproduce it." required></textarea>
+        </div>
+      </div>
+      <div class="form-foot">
+        <div class="hint">
+          Submitting opens your mail client addressed to <strong>Butraminamhegqulad@gmail.com</strong>.
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Send message
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+      <div class="toast" id="toast">
+        Your email client is opening with a pre-filled message. If nothing happens, send directly to <strong>Butraminamhegqulad@gmail.com</strong>.
+      </div>
+    </form>
+  </div>
+
+  <!-- Direct channels -->
+  <div class="channels">
+    <div class="channel">
+      <div class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </div>
+      <div>
+        <h4>Email</h4>
+        <p>Direct line to the developer.</p>
+        <a href="mailto:Butraminamhegqulad@gmail.com">Butraminamhegqulad@gmail.com</a>
+      </div>
+    </div>
+    <div class="channel">
+      <div class="ic">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div>
+        <h4>Response time</h4>
+        <p>We typically reply within 2 business days.</p>
+        <a href="#" style="color:var(--text-secondary);">UTC+08:00 · Asia/Shanghai</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <div class="container-wide">
+    <div class="foot-grid">
+      <div class="foot">
+        <a href="index.html" class="brand" style="margin-bottom:14px;">
+          <span class="brand-mark">V</span>
+          <span>FMASTER</span>
+        </a>
+        <p style="color:var(--text-secondary);font-size:14px;max-width:300px;">
+          A precision engineering reference, designed for the next generation of problem solvers.
+        </p>
+      </div>
+      <div class="foot">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="https://apps.apple.com/">Download</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="support.html">Help Center</a></li>
+          <li><a href="support.html#faq">FAQ</a></li>
+          <li><a href="support.html#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="foot">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 FMASTER. All rights reserved.</span>
+      <span>Butraminamhegqulad@gmail.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+
+  // Contact form → mailto
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    var name = encodeURIComponent(document.getElementById('name').value.trim());
+    var email = encodeURIComponent(document.getElementById('email').value.trim());
+    var topic = encodeURIComponent(document.getElementById('topic').value);
+    var version = encodeURIComponent(document.getElementById('version').value.trim());
+    var message = encodeURIComponent(document.getElementById('message').value.trim());
+    var body = 'Name: ' + (name || '—') + '\nEmail: ' + (email || '—') +
+               '\nTopic: ' + topic + '\nApp version: ' + (version || '—') +
+               '\n\n---\n\n' + message;
+    var href = 'mailto:Butraminamhegqulad@gmail.com?subject=' +
+               encodeURIComponent('[FMASTER] ' + topic + (version ? ' · v' + version : '')) +
+               '&body=' + body;
+    window.location.href = href;
+    document.getElementById('toast').classList.add('show');
+    setTimeout(function(){ document.getElementById('toast').classList.remove('show'); }, 6000);
+  });
+</script>
+
+</body>
+</html>
